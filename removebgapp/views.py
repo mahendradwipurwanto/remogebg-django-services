@@ -6,6 +6,7 @@ import base64
 import io
 import json
 import os
+from datetime import datetime
 
 @csrf_exempt
 def remove_background(request):
@@ -28,8 +29,9 @@ def remove_background(request):
             # Ensure the output directory exists, create it if necessary
             os.makedirs(output_directory, exist_ok=True)
 
-            # Generate a unique file name for the saved image
-            output_image_filename = os.path.join(output_directory, 'output_image.png')
+            # Generate a unique file name for the saved image based on the current time
+            current_time = datetime.now().strftime("%Y%m%d%H%M%S")
+            output_image_filename = os.path.join(output_directory, f'{current_time}_output_image.png')
 
             # Save the processed image to the specified directory
             output_image.save(output_image_filename, format="PNG")
